@@ -14,6 +14,7 @@ const domains = [
   'Payment Gateways (Stripe vs Razorpay vs PayPal)',
   'Authentication (Auth0 vs Firebase vs Custom)',
   'CI/CD (GitHub Actions vs GitLab CI vs Jenkins)',
+  'Custom…',
 ];
 
 export default function ComparisonForm({ onSubmit, loading }: ComparisonFormProps) {
@@ -26,10 +27,15 @@ export default function ComparisonForm({ onSubmit, loading }: ComparisonFormProp
     teamSize: '',
     priority: 'balanced',
   });
+  const [customDomain, setCustomDomain] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    const dataToSubmit = {
+      ...formData,
+      domain: formData.domain === 'Custom…' ? customDomain : formData.domain,
+    };
+    onSubmit(dataToSubmit);
   };
 
   return (
@@ -48,6 +54,22 @@ export default function ComparisonForm({ onSubmit, loading }: ComparisonFormProp
           ))}
         </select>
       </div>
+
+      {formData.domain === 'Custom…' && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Custom Comparison
+          </label>
+          <input
+            type="text"
+            value={customDomain}
+            onChange={(e) => setCustomDomain(e.target.value)}
+            placeholder="Type what you want to compare..."
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">

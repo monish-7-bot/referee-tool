@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import ComparisonForm from '@/components/ComparisonForm';
-import ComparisonResults from '@/components/ComparisonResults';
+import ComparisonForm from '@/app/components/ComparisonForm';
+import ComparisonResults from '@/app/components/ComparisonResults';
 
 export default function Home() {
   const [results, setResults] = useState(null);
